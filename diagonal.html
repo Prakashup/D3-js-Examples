@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	<head>
+		<title>D3 js examples</title>
+		<link href="style.css" rel="stylesheet">
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+	</head>
+	<body>
+	
+	</body>
+	<script>
+	
+		var canvas = d3.select('body').append('svg')
+							.attr('width', 600)
+							.attr('height',600)
+							.append('g')
+								.attr('transform','translate(50,50)');
+		
+//		var diagonal = d3.svg.diagonal()
+//							.source({x:10, y:10})
+//							.target({x: 300, y:300});
+		
+//		canvas.append('path')
+//				.attr('d', diagonal)
+//				.attr('stroke', 'blue')
+//				.attr('stroke-width', 5)
+//				.attr('fill','none');
+		
+		
+		d3.json('treedata.json', function(data){
+			
+			var tree = d3.layout.tree()
+				.size([500, 500]);
+				
+			var nodes = tree.nodes(data);
+			var links = tree.links(nodes);
+			
+			var diagonal = d3.svg.diagonal()
+				.projection(function(d){return [d.y, d.x]});
+			
+	        var node =	canvas.selectAll('.node')
+							.data(nodes)
+							.enter()
+							.append('g')
+							.attr('class', 'node')
+							.attr('transform', function(d) { return 'translate(' + d.y + ',' + d.x + ')';});
+
+			node.append('circle')
+				.attr('r', 5)
+				.attr('fill', 'green');
+			
+			node.append('text')
+				.text(function(d){ return d.name})
+				.attr('font-size','0.8em')
+				.attr('transform','translate(10, 3)')
+				.attr('fill','#000');
+			
+			canvas.selectAll('.link')
+					.data(links)
+					.enter()
+					.append('path')
+					.attr('d', diagonal)
+					.attr('stroke',"green")
+					.attr('fill', 'none');
+			
+			
+		})
+		
+	</script>
+</html>

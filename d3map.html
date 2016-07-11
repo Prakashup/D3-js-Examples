@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<title>D3 js examples</title>
+		<link href="style.css" rel="stylesheet">
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+	</head>
+	<body>
+	
+	</body>
+	<script>
+		
+		
+	
+		d3.json('custom.geo.json', function(data){
+			var width = 700;
+			var height = 700;
+			
+		
+			var canvas = d3.select('body').append('svg')
+							.attr('width', width)
+							.attr('height', height)
+					
+			
+			console.log(data);
+			var group = canvas.selectAll('g')
+						.data(data.features)
+						.enter()
+						.append('g')
+//						.attr('transform','translate(-100,20)')
+			
+			var projection = d3.geo.mercator().scale(1000).translate([-1100, 750]);
+			var path = d3.geo.path().projection(projection);
+			
+			
+			var area = group.append('path')
+						.attr('d', path)
+						.attr('class','area')
+						.attr('fill', 'steelblue');
+			
+			var text = group.append('text')
+						.text(function(d){return d.properties.ABBREV})
+						.attr('text-anchor','middle')
+						.attr('fill','white')
+						.attr('x', function(d){ return path.centroid(d)[0];})
+						.attr('y', function(d){ return path.centroid(d)[1];})
+			
+		});
+		
+		
+		
+	</script>
+</html>

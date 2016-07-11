@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+	<head>
+		<title>D3 js examples</title>
+		<link href="style.css" rel="stylesheet">
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+	</head>
+	<body>
+	
+	</body>
+	<script>
+	
+		var data = [20, 30, 60];
+		var r = 300;
+		
+		var color = d3.scale.ordinal()
+						.range(["red", "orange", "blue"]);
+		
+		var chart = d3.select('body')
+						.append('svg')
+						.attr('width', 1000)
+						.attr('height',800);
+		
+		var group = chart.append('g')
+							.attr('transform', 'translate(300, 300)');
+		
+		var arc = d3.svg.arc()
+					.innerRadius(50)
+					.outerRadius(r);
+		
+		var pie = d3.layout.pie()
+					.value(function(d){ return d;})
+		
+		var arcs = group.selectAll('.arc')
+						.data(pie(data))
+						.enter()
+						.append('g')
+							.attr('class','arc');
+		
+		arcs.append('path')
+				.attr('d', arc)
+				.attr('fill', function(d) { return color(d.data);})
+		
+		arcs.append('text')
+			.text(function(d){ return d.data})
+			.attr('transform', function(d) { return 'translate(' + arc.centroid(d) + ')'; })
+			.attr('font-size', '1.2em')
+			.attr('text-anchor', 'middle')
+			.attr('fill','white');
+		
+	</script>
+</html>

@@ -1,0 +1,37 @@
+{
+	"name": "Bollywood",
+	"children": [
+		{
+		"name": "Hrithik",
+		"children": [
+			{"name": " son 1"},
+			{"name": " son 2"},
+			{"name": " son 3"}
+			]
+		},
+		{
+			"name": "Amitabh",
+			"children": [
+				{
+					"name":"Abhi",
+					"children": [
+						{"name": " son 1"},
+						{"name": " son 2"},
+						{"name": " son 3"}
+					]
+				
+				},
+				{
+					"name":"Aryan",
+					"children": [
+						{"name": " son 1"},
+						{"name": " son 2"},
+						{"name": " son 3"}
+					]
+				
+				}
+			]
+		},
+		{"name":"Kapoor"}
+	]
+}

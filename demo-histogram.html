@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+	<head>
+		<title>D3 js examples</title>
+		<link href="style.css" rel="stylesheet">
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+	</head>
+	<body>
+	
+	</body>
+	<script>
+		
+		d3.csv('histogram.csv', function(data){
+			
+			var width= 500, height = 500, padding = 50;
+			
+			var map = data.map(function(i){ return parseInt(i.age); });
+			
+			
+			
+			var histogram = d3.layout.histogram()
+								.bins(5)(map);
+			var y = d3.scale.linear()
+					.domain([0, d3.max(histogram.map(function(i){ return i.length;}))])
+					.range([0, height]);
+			
+			var x = d3.scale.linear()
+					.domain([0, d3.max(map)])
+					.range([0, width]);
+			
+			console.log(histogram);
+			var canvas = d3.select('body')
+								.append('svg')
+									.attr('width', width + padding)
+			  						.attr('height', height + padding)
+									.append('g');
+			
+			var bars = canvas.selectAll('.bars')
+									.data(histogram)
+									.enter()
+									.append('g');
+			bars.append('rect')
+						.attr('x', function(d){ return x(d.x); })
+						.attr('y', function(d){ return height - y(d.y);})
+						.attr('width', function(d){ return x(d.dx);})
+						.attr('height', function(d){ return y(d.y); })
+						.attr('fill', 'steelblue')
+						.attr('stroke', 'white')
+						.attr('stroke-width', '1px')
+						
+			
+			bars.append('text')
+					.text(function(d){return d.y; } )
+					.attr('fill', 'white')
+					.attr('text-anchor','middle')
+					.attr('dy', '20px')
+					.attr('dx', function(d){ return x(d.dx)/2; })
+					.attr('x', function(d){ return x(d.x); })
+					.attr('y', function(d){ return height - y(d.y); })
+								
+			
+		});
+		
+	</script>
+</html>

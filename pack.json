@@ -1,0 +1,41 @@
+{
+	"name": "Bollywood",
+	"value": 700,
+	"children": [
+		{
+		"name": "Hrithik",
+		"value": "600",	
+		"children": [
+			{"name": " son 1", "value": 300},
+			{"name": " son 2", "value": 200},
+			{"name": " son 3", "value": 100}
+			]
+		},
+		{
+			"name": "Amitabh",
+			"value": 500,
+			"children": [
+				{
+					"name":"Abhi",
+					"value": 400,
+					"children": [
+						{"name": " son 1", "value": 100},
+						{"name": " son 2", "value": 200},
+						{"name": " son 3", "value": 300}
+					]
+				
+				},
+				{
+					"name":"Aryan",
+					"value": 300,
+					"children": [
+						{"name": " son 1", "value": 100},
+						{"name": " son 2", "value": 100},
+						{"name": " son 3", "value": 200}
+					]
+				
+				}
+			]
+		}
+	]
+}

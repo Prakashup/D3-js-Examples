@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+	<head>
+		<title>D3 js examples</title>
+		<link href="style.css" rel="stylesheet">
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+	</head>
+	<body>
+	
+	</body>
+	<script>
+		
+		var width = 800, height = 600;
+	
+		d3.json('pack.json', function(data){
+			
+			var canvas = d3.select('body').append('svg')
+							.attr('width', width)
+							.attr('height', height)
+							.append('g')
+								.attr('transform','translate(20, 20)');
+			
+			var pack = d3.layout.pack()
+					.size([width, height - 50])
+					.padding(10);
+			
+			var nodes = pack.nodes(data);
+			console.log(nodes);
+			
+			var node = canvas.selectAll('.nodes')
+						.data(nodes)
+						.enter()
+						.append('g')
+							.attr('class','nodes')
+							.attr('transform', function(d){ return 'translate(' + d.x + ',' + d.y + ')';});
+			
+			node.append('circle')
+				.attr('r', function(d){ return d.r; })
+				.attr('fill', 'steelblue')
+			    //.attr('fill', function(d){ return d.children ? 'white':'steelblue' ;})
+				.attr('opacity', 0.5)
+				//.attr('stroke','#ccc')
+				//.attr('stroke-width', 2);
+			
+			node.append('text')
+				.text(function(d){ return d.children ? "" : d.name;})
+				.attr('text-anchor','middle')
+				.attr('font-size', 12)
+				.attr('fill', 'white')
+			
+			
+		});
+		
+		
+		
+	</script>
+</html>

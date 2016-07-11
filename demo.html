@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+	<head>
+		<title>D3 js examples</title>
+		<link href="style.css" rel="stylesheet">
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+	</head>
+	<body>
+	
+	</body>
+	<h1>D3 js Example</h1>
+	
+	
+	
+	
+	<script>
+		var width =500, height = 500;
+		var data = [10,20,30,40,50, 60];
+		
+		var vscale = d3.scale.linear()
+						.domain([0,60])
+		       			.range([0, height]);
+		
+		var color = d3.scale.linear()
+						.domain([0,60])
+		       			.range(['blue', 'black']);
+		
+		var color1 = d3.scale.category20();
+					
+		
+		var canvas =	d3.select('body')
+						.append('svg')
+						.attr('width', width)
+						.attr('height', height);
+		
+		var bars = canvas.selectAll('rect')
+							.data(data)
+							.enter()
+		                  		.append('rect')
+								 .attr('x', function(d,i){ return 50*i; })
+								 .attr('y', function(d){ return height - vscale(d); })
+		         				 .attr('width',48)
+								 .attr('height', function(d){ return vscale(d);})
+								 .attr('fill', function(d){ return color1(d)});
+		
+		
+		
+	
+	</script>
+</html>
+
+
+
+
+
+
+
+
+
+
